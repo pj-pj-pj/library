@@ -36,17 +36,17 @@
 
 body {
   height: 100%;
+  padding: 0 15%;
 }
 
 nav {
   display: flex;
   align-items: center;
-  padding: 28px 15%;
+  padding: 28px 0;
 }
 
 hr {
   border: 1px solid var(--color-surface-200);
-  margin: 0 5%;
 }
 
 nav h3 {
@@ -54,6 +54,16 @@ nav h3 {
   padding-right: 3px;
 }
 
-.container {
+container {
   display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  padding: 28px 0;
+  grid-template-rows: auto;
+  grid-gap: 15px;
+}
+
+.card {
+  background-color: var(--color-surface-200);
+  padding: 20px;
+  border-radius: 15px;
 }
