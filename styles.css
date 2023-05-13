@@ -72,10 +72,33 @@ container {
   grid-gap: 15px;
 }
 
+#add-book,
+.card {
+  border-radius: 15px;
+}
+
+#add-book {
+  margin: 10px;
+  display: flex;
+  order: 9999999999999999999;
+  border: 2px dashed var(--highlight-color);
+}
+
+#add-book button {
+  background: none;
+}
+
+#add-book img {
+  width: 30%;
+}
+
+#add-book:hover {
+  background-color: var(--color-surface-mixed-200);
+}
+
 .card {
   background-color: var(--color-surface-mixed-200);
   padding: 45px 20px 30px 35px;
-  border-radius: 15px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   hyphens: auto;
 
