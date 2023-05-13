@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
 :root {
   /** CSS DARK THEME PRIMARY COLORS */
   --color-primary-100: #3f51b5;
@@ -21,22 +23,25 @@
   --color-surface-mixed-500: #75747a;
   --color-surface-mixed-600: #8f8f93;
 
-  --highlight-color: var(--color-primary-600);
+  --highlight-color: var(--color-primary-500);
+  --highlight-color-darker: var(--color-primary-300);
   --button-text-color: var(--color-surface-100);
 
   color: white;
-  background-color: var(--color-surface-100);
+
+  background-color: var(--color-surface-mixed-100);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat';
 }
 
 body {
   height: 100%;
-  padding: 0 15%;
+  padding: 0 20%;
 }
 
 nav {
@@ -50,20 +55,106 @@ hr {
 }
 
 nav h3 {
+  font-size: 28px;
   color: var(--highlight-color);
-  padding-right: 3px;
+  padding-left: 30px;
+}
+
+nav h1 {
+  font-size: 35px;
 }
 
 container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   padding: 28px 0;
   grid-template-rows: auto;
   grid-gap: 15px;
 }
 
 .card {
-  background-color: var(--color-surface-200);
-  padding: 20px;
+  background-color: var(--color-surface-mixed-200);
+  border-left: 15px solid var(--highlight-color);
+  padding: 30px 20px;
+  padding-top: 45px;
   border-radius: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+
+  position: relative;
+  top: 0;
+  transition: all 0.1s ease-in;
+}
+
+.author,
+.pages {
+  display: inline;
+  font-size: 14px;
+  font-weight: bold;
+  color: #c9c9c9;
+  text-transform: uppercase;
+}
+
+.author {
+  margin-top: 1.7em;
+}
+
+.pages {
+  margin-bottom: 1em;
+}
+
+.card:hover {
+  top: -4px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+}
+
+button {
+  border-radius: 50px;
+  border: 0;
+  cursor: pointer;
+}
+
+.remove-icon {
+  width: 24px;
+  filter: brightness(0) invert(10%) sepia(70%) saturate(7334%)
+    hue-rotate(348deg) brightness(80%) contrast(90%);
+}
+
+.remove-btn {
+  background-color: var(--background-color);
+  padding: 7px;
+}
+
+.remove-btn:hover {
+  background-color: var(--color-surface-100);
+  transition: all 0.1s ease-in;
+}
+
+.isread-btn {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 7px 18px;
+  background-color: var(--highlight-color);
+
+  flex: 1;
+}
+
+.isread-btn:hover {
+  background-color: var(--highlight-color-darker);
+  transition: all 0.1s ease-in;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 1000px) {
+  body {
+    padding: 0 5%;
+  }
 }

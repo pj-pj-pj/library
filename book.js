@@ -29,21 +29,31 @@ function displayBooks(library) {
     author.className = 'author';
 
     const pages = document.createElement('p');
-    pages.textContent = book.noPages;
+    pages.textContent = `${book.noPages} pages`;
     pages.className = 'pages';
+
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'btn-container';
 
     const isReadBtn = document.createElement('button');
     isReadBtn.textContent = book.isRead;
-    isReadBtn.className = 'isReadBtn';
+    isReadBtn.className = 'isread-btn';
 
     const removeBtn = document.createElement('button');
-    removeBtn.textContent = 'Remove';
+    removeBtn.className = 'remove-btn';
+    const icon = document.createElement('img');
+    icon.className = 'remove-icon';
+    icon.src = 'delete.png';
+    icon.alt = 'Delete';
 
     newCard.appendChild(title);
     newCard.appendChild(author);
     newCard.appendChild(pages);
     newCard.appendChild(isReadBtn);
-    newCard.appendChild(removeBtn);
+    newCard.appendChild(btnContainer);
+    btnContainer.appendChild(isReadBtn);
+    btnContainer.appendChild(removeBtn);
+    removeBtn.appendChild(icon);
 
     cardContainer.appendChild(newCard);
   }
@@ -51,10 +61,16 @@ function displayBooks(library) {
 
 
 let myLibrary = [];
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
-const theHobbit2 = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
+const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, true);
+const theHobbit2 = new Book('The Hobbit 2', 'J.R.R. Tolkien', 295, false);
+const theHobbitsf = new Book('The Hobbit 3', 'J.R.R. Tolkien', 295, false);
+const ttheHobbit2 = new Book('The Hobbit 4', 'J.R.R. Tolkien', 295, false);
+const hWorld = new Book('Hello World', 'Ada Lovelace', 495, true);
 addBookToLibrary(theHobbit, myLibrary);
 addBookToLibrary(theHobbit2, myLibrary);
+addBookToLibrary(theHobbitsf, myLibrary);
+addBookToLibrary(ttheHobbit2, myLibrary);
+addBookToLibrary(hWorld, myLibrary);
 
 displayBooks(myLibrary);
 
