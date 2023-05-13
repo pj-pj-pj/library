@@ -56,9 +56,30 @@ function displayBooks(library) {
     removeBtn.appendChild(icon);
 
     cardContainer.appendChild(newCard);
+
+    addBorderifRead(isReadBtn);
   }
 }
 
+function updateReadState() {
+  if (this.textContent == 'finished') {
+    this.textContent = 'unfinished';
+  } else {
+    this.textContent = 'finished';
+  }
+  addBorderifRead(this);
+}
+
+function addBorderifRead(btn) {
+  const parent = btn.parentNode;
+  const grandparent = parent.parentNode;
+
+  if (btn.textContent == 'finished') {
+    grandparent.classList.add('finished-card');
+  } else {
+    grandparent.classList.remove('finished-card');
+  }
+}
 
 let myLibrary = [];
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, true);
@@ -71,8 +92,15 @@ addBookToLibrary(theHobbit2, myLibrary);
 addBookToLibrary(theHobbitsf, myLibrary);
 addBookToLibrary(ttheHobbit2, myLibrary);
 addBookToLibrary(hWorld, myLibrary);
-
 displayBooks(myLibrary);
+
+const rmvBtns = document.querySelectorAll('.isread-btn');
+
+rmvBtns.forEach(btn => {
+  btn.addEventListener('click', updateReadState)
+});
+
+
 
 
 
