@@ -1,3 +1,45 @@
+let myLibrary = [];
+
+const firstBook = new Book('The Hobbit', 'J.R.R. Tolkien', 295, true);
+addBookToLibrary(firstBook, myLibrary);
+
+const submitBtn = document.querySelector('input[type ="submit"]');
+const cardContainer = document.querySelector('container');
+const modalContainer = document.querySelector('.modal-container');
+const trigger = document.querySelector('#add-book');
+const closeBtn = document.querySelector('.close-button');
+
+submitBtn.addEventListener('click', submit);
+
+cardContainer.addEventListener('click', function (e) {
+  if (e.target.classList.contains('isread-btn')) {
+    updateReadState.call(e.target);
+    addBorderifRead.call(e.target);
+  }
+
+  if (e.target.classList.contains('remove-btn')) {
+    deleteBook.call(e.target);
+  } else if (e.target.parentNode.classList.contains('remove-btn')) {
+    deleteBook.call(e.target.parentNode);
+  }
+})
+
+trigger.addEventListener('click', toggleModal);
+closeBtn.addEventListener('click', toggleModal);
+window.addEventListener('click', windowOnCLick);
+
+function submit(e) {
+  toggleModal();
+  const title = document.getElementById('title').value;
+  const author = document.getElementById('author').value;
+  const pages = parseInt(document.getElementById('pages').value);
+
+  const newBook = new Book(title, author, pages, false);
+  addBookToLibrary(newBook, myLibrary);
+
+  e.preventDefault();
+}
+
 function Book(title, author, noPages, isRead) {
   this.title = title;
   this.author = author;
@@ -6,61 +48,59 @@ function Book(title, author, noPages, isRead) {
   this.info = function () {
     return `"${this.title} by ${this.author}, ${this.noPages} pages, ${this.isRead}"`
   };
-
 }
 
 function addBookToLibrary(Book, lib) {
   lib.push(Book);
+  displayBook(Book);
 }
 
-function displayBooks(library) {
+
+function displayBook(book) {
   const cardContainer = document.querySelector('container');
 
-  for (const book of library) {
-    const newCard = document.createElement('div');
-    newCard.className = 'card';
+  const newCard = document.createElement('div');
+  newCard.className = 'card';
 
-    const title = document.createElement('h2');
-    title.textContent = book.title;
-    title.className = 'title';
+  const title = document.createElement('h2');
+  title.textContent = book.title;
+  title.className = 'title';
 
-    const author = document.createElement('p');
-    author.textContent = book.author;
-    author.className = 'author';
+  const author = document.createElement('p');
+  author.textContent = book.author;
+  author.className = 'author';
 
-    const pages = document.createElement('p');
-    pages.textContent = `${book.noPages} pages`;
-    pages.className = 'pages';
+  const pages = document.createElement('p');
+  pages.textContent = `${book.noPages} pages`;
+  pages.className = 'pages';
 
-    const btnContainer = document.createElement('div');
-    btnContainer.className = 'btn-container';
+  const btnContainer = document.createElement('div');
+  btnContainer.className = 'btn-container';
 
-    const isReadBtn = document.createElement('button');
-    isReadBtn.textContent = book.isRead;
-    isReadBtn.className = 'isread-btn';
+  const isReadBtn = document.createElement('button');
+  isReadBtn.textContent = book.isRead;
+  isReadBtn.className = 'isread-btn';
 
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'remove-btn';
-    const icon = document.createElement('img');
-    icon.className = 'remove-icon';
-    icon.src = 'delete.png';
-    icon.alt = 'Delete';
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'remove-btn';
+  const icon = document.createElement('img');
+  icon.className = 'remove-icon';
+  icon.src = 'delete.png';
+  icon.alt = 'Delete';
 
-    removeBtn.setAttribute('data-index', book.title);
+  removeBtn.setAttribute('data-index', book.title);
 
-    newCard.appendChild(title);
-    newCard.appendChild(author);
-    newCard.appendChild(pages);
-    newCard.appendChild(isReadBtn);
-    newCard.appendChild(btnContainer);
-    btnContainer.appendChild(isReadBtn);
-    btnContainer.appendChild(removeBtn);
-    removeBtn.appendChild(icon);
+  newCard.appendChild(title);
+  newCard.appendChild(author);
+  newCard.appendChild(pages);
+  newCard.appendChild(isReadBtn);
+  newCard.appendChild(btnContainer);
+  btnContainer.appendChild(isReadBtn);
+  btnContainer.appendChild(removeBtn);
+  removeBtn.appendChild(icon);
 
-    cardContainer.appendChild(newCard);
-
-    addBorderifRead(isReadBtn);
-  }
+  cardContainer.appendChild(newCard);
+  addBorderifRead.call(isReadBtn);
 }
 
 function updateReadState() {
@@ -69,14 +109,13 @@ function updateReadState() {
   } else {
     this.textContent = 'finished';
   }
-  addBorderifRead(this);
 }
 
-function addBorderifRead(btn) {
-  const parent = btn.parentNode;
+function addBorderifRead() {
+  const parent = this.parentNode;
   const grandparent = parent.parentNode;
 
-  if (btn.textContent == 'finished') {
+  if (this.textContent == 'finished') {
     grandparent.classList.add('finished-card');
   } else {
     grandparent.classList.remove('finished-card');
@@ -94,35 +133,6 @@ function deleteBook() {
   console.log(myLibrary, this.getAttribute('data-index'));
 }
 
-let myLibrary = [];
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, true);
-const theHobbit2 = new Book('The Hobbit 2', 'J.R.R. Tolkien', 295, false);
-const theHobbitsf = new Book('The Hobbit 3', 'J.R.R. Tolkien', 295, false);
-const ttheHobbit2 = new Book('The Hobbit 4', 'J.R.R. Tolkien', 295, false);
-const hWorld = new Book('Hello World aslkddsj kajskjasalksasj', 'Ada Lovelace', 495, true);
-addBookToLibrary(theHobbit, myLibrary);
-addBookToLibrary(theHobbit2, myLibrary);
-addBookToLibrary(theHobbitsf, myLibrary);
-addBookToLibrary(ttheHobbit2, myLibrary);
-addBookToLibrary(hWorld, myLibrary);
-displayBooks(myLibrary);
-
-const isreadBtns = document.querySelectorAll('.isread-btn');
-
-isreadBtns.forEach(btn => {
-  btn.addEventListener('click', updateReadState)
-});
-
-const rmvBtns = document.querySelectorAll('.remove-btn');
-
-rmvBtns.forEach(btn => {
-  btn.addEventListener('click', deleteBook)
-})
-
-const modalContainer = document.querySelector('.modal-container');
-const trigger = document.querySelector('#add-book');
-const closeBtn = document.querySelector('.close-button');
-
 function toggleModal() {
   modalContainer.classList.toggle("show");
 }
@@ -132,7 +142,3 @@ function windowOnCLick(e) {
     toggleModal();
   }
 }
-
-trigger.addEventListener('click', toggleModal);
-closeBtn.addEventListener('click', toggleModal);
-window.addEventListener('click', windowOnCLick);

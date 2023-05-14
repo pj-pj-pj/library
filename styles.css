@@ -81,7 +81,8 @@ container {
 }
 
 #add-book {
-  padding: 40px;
+  cursor: pointer;
+  padding: 30% 0;
   margin: 10px;
   display: flex;
   order: 9999999999999999999;
@@ -262,5 +263,8 @@ button {
 @media (max-width: 1000px) {
   main {
     padding: 0 5%;
+  }
+  #add-book {
+    padding: 10% 0;
   }
 }
