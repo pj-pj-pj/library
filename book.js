@@ -8,6 +8,7 @@ const cardContainer = document.querySelector('container');
 const modalContainer = document.querySelector('.modal-container');
 const trigger = document.querySelector('#add-book');
 const closeBtn = document.querySelector('.close-button');
+const pagesField = document.getElementById('pages');
 
 submitBtn.addEventListener('click', submit);
 
@@ -27,15 +28,25 @@ cardContainer.addEventListener('click', function (e) {
 trigger.addEventListener('click', toggleModal);
 closeBtn.addEventListener('click', toggleModal);
 window.addEventListener('click', windowOnCLick);
+pagesField.addEventListener('keypress', checkPages);
 
 function submit(e) {
-  toggleModal();
   const title = document.getElementById('title').value;
   const author = document.getElementById('author').value;
   const pages = parseInt(document.getElementById('pages').value);
 
-  const newBook = new Book(title, author, pages, false);
-  addBookToLibrary(newBook, myLibrary);
+  if (title === '' || author === '' || isNaN(pages)) {
+    const warningMsg = document.querySelector('.required-warning')
+    warningMsg.style.display = 'block';
+
+    setTimeout(function () {
+      warningMsg.style.display = 'none';
+    }, 2000);
+  } else {
+    toggleModal();
+    const newBook = new Book(title, author, pages, false);
+    addBookToLibrary(newBook, myLibrary);
+  }
 
   e.preventDefault();
 }
@@ -45,9 +56,6 @@ function Book(title, author, noPages, isRead) {
   this.author = author;
   this.noPages = noPages;
   this.isRead = isRead ? "finished" : "unfinished";
-  this.info = function () {
-    return `"${this.title} by ${this.author}, ${this.noPages} pages, ${this.isRead}"`
-  };
 }
 
 function addBookToLibrary(Book, lib) {
@@ -129,8 +137,6 @@ function deleteBook() {
 
   myLibrary = myLibrary.filter(book => book.title !== removeElement);
   grandparent.remove();
-
-  console.log(myLibrary, this.getAttribute('data-index'));
 }
 
 function toggleModal() {
@@ -141,4 +147,14 @@ function windowOnCLick(e) {
   if (e.target === modalContainer) {
     toggleModal();
   }
+}
+
+function checkPages(e) {
+  const charCode = e.charCode;
+  if (charCode >= 48 && charCode <= 57) {
+    return true;
+  }
+
+  e.preventDefault();
+  return false;
 }

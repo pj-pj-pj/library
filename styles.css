@@ -260,6 +260,12 @@ button {
   cursor: pointer;
 }
 
+.required-warning {
+  display: none;
+  color: #ed2b2a;
+  padding-top: 3px;
+}
+
 @media (max-width: 1000px) {
   main {
     padding: 0 5%;
