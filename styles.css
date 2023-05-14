@@ -260,7 +260,7 @@ button {
   cursor: pointer;
 }
 
-.required-warning {
+.warning {
   display: none;
   color: #ed2b2a;
   padding-top: 3px;

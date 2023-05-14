@@ -31,16 +31,27 @@ window.addEventListener('click', windowOnCLick);
 pagesField.addEventListener('keypress', checkPages);
 
 function submit(e) {
-  const title = document.getElementById('title').value;
-  const author = document.getElementById('author').value;
-  const pages = parseInt(document.getElementById('pages').value);
+  const titleInput = document.getElementById('title');
+  const authorInput = document.getElementById('author');
+  const pagesInput = document.getElementById('pages');
+
+  const title = titleInput.value.trim();
+  const author = authorInput.value.trim();
+  const pages = parseInt(pagesInput.value);
 
   if (title === '' || author === '' || isNaN(pages)) {
-    const warningMsg = document.querySelector('.required-warning')
+    const warningMsg = document.querySelector('.required');
     warningMsg.style.display = 'block';
 
     setTimeout(function () {
       warningMsg.style.display = 'none';
+    }, 2000);
+  } else if (myLibrary.some(book => book.title.toLowerCase() === title.toLowerCase() && book.author.toLowerCase() === author.toLowerCase())) {
+    const existsWarningMsg = document.querySelector('.exists');
+    existsWarningMsg.style.display = 'block';
+
+    setTimeout(function () {
+      existsWarningMsg.style.display = 'none';
     }, 2000);
   } else {
     toggleModal();
@@ -49,6 +60,16 @@ function submit(e) {
   }
 
   e.preventDefault();
+}
+
+function clearFields() {
+  const titleInput = document.getElementById('title');
+  const authorInput = document.getElementById('author');
+  const pagesInput = document.getElementById('pages');
+
+  titleInput.value = '';
+  authorInput.value = '';
+  pagesInput.value = ''
 }
 
 function Book(title, author, noPages, isRead) {
@@ -96,7 +117,7 @@ function displayBook(book) {
   icon.src = 'delete.png';
   icon.alt = 'Delete';
 
-  removeBtn.setAttribute('data-index', book.title);
+  removeBtn.setAttribute('data-index', `${book.title}-${book.author}`);
 
   newCard.appendChild(title);
   newCard.appendChild(author);
@@ -135,12 +156,16 @@ function deleteBook() {
   const grandparent = parent.parentNode;
   const removeElement = this.getAttribute('data-index')
 
-  myLibrary = myLibrary.filter(book => book.title !== removeElement);
+  myLibrary = myLibrary.filter(book => {
+    const bookToRemove = `${book.title}-${book.author}`;
+    return bookToRemove !== removeElement;
+  });
   grandparent.remove();
 }
 
 function toggleModal() {
   modalContainer.classList.toggle("show");
+  clearFields();
 }
 
 function windowOnCLick(e) {
