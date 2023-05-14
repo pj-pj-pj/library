@@ -39,8 +39,14 @@
   font-family: 'Montserrat';
 }
 
-body {
+html {
   height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 main {
@@ -264,6 +270,14 @@ button {
   display: none;
   color: #ed2b2a;
   padding-top: 3px;
+}
+
+footer {
+  font-size: 13px;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+  padding-bottom: 2%;
 }
 
 @media (max-width: 1000px) {
