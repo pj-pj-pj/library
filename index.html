@@ -10,12 +10,24 @@
     <script src="book.js" defer></script>
   </head>
   <body>
-    <nav>
-      <h3>my</h3>
-      <h1>library</h1>
-    </nav>
-    <hr />
+    <div class="modal-container">
+      <form class="modal" action="">
+        <span class="close-button">&times;</span>
+        <div class="form-container">
+          <h2>Add book</h2>
+          <input type="text" placeholder="Title" />
+          <input type="text" placeholder="Author" />
+          <input type="text" placeholder="Pages" />
+          <input type="submit" />
+        </div>
+      </form>
+    </div>
     <main>
+      <nav>
+        <h3>my</h3>
+        <h1>library</h1>
+      </nav>
+      <hr />
       <container>
         <div id="add-book">
           <button><img src="plus.png" alt="" /></button>

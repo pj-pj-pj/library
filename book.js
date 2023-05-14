@@ -118,3 +118,21 @@ const rmvBtns = document.querySelectorAll('.remove-btn');
 rmvBtns.forEach(btn => {
   btn.addEventListener('click', deleteBook)
 })
+
+const modalContainer = document.querySelector('.modal-container');
+const trigger = document.querySelector('#add-book');
+const closeBtn = document.querySelector('.close-button');
+
+function toggleModal() {
+  modalContainer.classList.toggle("show");
+}
+
+function windowOnCLick(e) {
+  if (e.target === modalContainer) {
+    toggleModal();
+  }
+}
+
+trigger.addEventListener('click', toggleModal);
+closeBtn.addEventListener('click', toggleModal);
+window.addEventListener('click', windowOnCLick);
